@@ -5,18 +5,17 @@ import bitc.aws402.project.dto.ResourceDTO;
 import bitc.aws402.project.dto.RoomDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
 @Mapper
 public interface BasicMapper {
-  public MemberDTO getMemberInfo(@Param("memberIdx") int memberIdx);
-  public List<MemberDTO> getMemberList();
-  public int editMember(MemberDTO member);
-  public int addMember(MemberDTO member);
-  public List<RoomDTO> getRoomList();
-  public RoomDTO getRoomInfo(@Param("roomIdx") int roomIdx);
-  public int editRoom(RoomDTO room);
-  public List<ResourceDTO> getResourceList(@Param("roomIdx") int roomIdx);
+  MemberDTO getMemberInfo(@Param("memberIdx") int memberIdx);
+  List<MemberDTO> getMemberList();
+  int editMember(MemberDTO member);
+  int addMember(MemberDTO member);
+  List<RoomDTO> getRoomList();
+  RoomDTO getRoomInfo(@Param("roomIdx") int roomIdx);
+  int editRoom(RoomDTO room);
+  List<ResourceDTO> getResourceList(@Param("roomIdx") int roomIdx);
 }
