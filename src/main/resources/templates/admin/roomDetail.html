@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Title</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.20.0/dist/axios.min.js"></script>
+
+  <style>
+  </style>
+
+  <script>
+      window.addEventListener("DOMContentLoaded", function () {
+          const editRoom = document.querySelector("#edit-room");
+          const editBtnGroup = document.querySelector("#edit_btn_group");
+          const editOk = document.querySelector("#edit-ok");
+          const editCancel = document.querySelector("#edit-cancel");
+          editRoom.addEventListener("click", function () {
+              editRoom.classList.toggle("d-none");
+              editBtnGroup.classList.toggle("d-none");
+              toggleEditRoom();
+          });
+          editCancel.addEventListener("click", function () {
+              location.reload();
+          });
+          editOk.addEventListener("click", function () {
+              document.querySelector("#frm").submit();
+          });
+      });
+
+      function toggleEditRoom() {
+          document.querySelector("#room-name").toggleAttribute("disabled");
+          document.querySelector("#room-size").toggleAttribute("disabled");
+          document.querySelector("#room-basic-person").toggleAttribute("disabled");
+          document.querySelector("#room-max-person").toggleAttribute("disabled");
+          document.querySelector("#room-price-weekdays").toggleAttribute("disabled");
+          document.querySelector("#room-price-weekend").toggleAttribute("disabled");
+          document.querySelector("#room-price-shoulder-weekdays").toggleAttribute("disabled");
+          document.querySelector("#room-price-shoulder-weekend").toggleAttribute("disabled");
+          document.querySelector("#room-price-peak-weekdays").toggleAttribute("disabled");
+          document.querySelector("#room-price-peak-weekend").toggleAttribute("disabled");
+          document.querySelector("#room-service").toggleAttribute("disabled");
+      }
+
+      function selectResourceAll(){
+        const resourceChecks = document.querySelectorAll(".remove_resource");
+        resourceChecks.forEach(function (check){
+          check.checked = true;
+        });
+      }
+
+      function removeCheckedResources(){
+          const resourceChecks = document.querySelectorAll(".remove_resource:checked");
+          if(resourceChecks.length === 0){
+              alert("선택된 이미지가 없습니다.");
+          }else{
+              const frm = document.createElement("form");
+              frm.setAttribute("method", "POST");
+              frm.setAttribute("action", "/admin/resource");
+              resourceChecks.forEach(function (check, index){
+                  const deleteList = document.createElement("input");
+                  deleteList.type = "text";
+                  deleteList.name = 'deleteList['+index+']';
+                  deleteList.value = check.value;
+                  frm.appendChild(deleteList);
+              });
+              const deleteMethod = document.createElement("input");
+              deleteMethod.type = "hidden";
+              deleteMethod.name = "_method";
+              deleteMethod.value = "delete";
+              frm.appendChild(deleteMethod);
+              console.log(frm.outerHTML);
+              document.body.appendChild(frm);
+              frm.submit();
+          }
+      }
+  </script>
+
+</head>
+<body>
+<header>
+  <nav th:replace="~{/layout/header::navigator}"></nav>
+</header>
+<main class="container mt-5">
+  <div class="row" >
+    <div class="card col-sm-4 px-0" th:if="${#lists.size(resourceList)>0}" th:each="resource : ${resourceList}">
+      <img  src="" class="card-img-top" alt="" th:src="${resource.resourcePath}"/>
+      <div class="card-img-overlay text-end p-2">
+        <input type="checkbox" class="form-check-input remove_resource" th:value="${resource.resourceIdx}">
+      </div>
+    </div>
+    <div class="col-sm-12 text-end mt-2">
+      <button type="button" class="btn btn-outline-warning" onclick="selectResourceAll()">모두선택</button>
+      <button type="button" class="btn btn-danger" onclick="removeCheckedResources()">선택 이미지 삭제</button>
+    </div>
+  </div>
+  <div class="row">
+
+
+<!--    <div id="carousel-image" class="carousel slide">-->
+<!--      <div class="carousel-inner" th:if="${#lists.size(resourceList)>0}" th:each="resource : ${resourceList}">-->
+<!--        <div class="carousel-item active">-->
+<!--          <img src="" class="d-block w-100" alt="" th:src="${resource.resourcePath}">-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--      <button class="carousel-control-prev" type="button" data-bs-target="#carousel-image" data-bs-slide="prev">-->
+<!--        <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--        <span class="visually-hidden">Previous</span>-->
+<!--      </button>-->
+<!--      <button class="carousel-control-next" type="button" data-bs-target="#carousel-image" data-bs-slide="next">-->
+<!--        <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--        <span class="visually-hidden">Next</span>-->
+<!--      </button>-->
+<!--    </div>-->
+    <form action="/admin/room" method="post" id="frm">
+      <div class="col-sm mt-2">
+        <div class="form-floating">
+          <input type="hidden" class="form-control" id="room-idx" name="roomIdx" th:value="${room.roomIdx}">
+        </div>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="room-name" name="roomName" disabled th:value="${room.roomName}">
+          <label for="room-name" class="form-label">이름</label>
+        </div>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="room-size" name="roomSize" disabled th:value="${room.roomSize}">
+          <label for="room-size" class="form-label">사이즈</label>
+        </div>
+        <div class="form-floating">
+          <input type="number" class="form-control" id="room-basic-person" name="roomBasicPerson" disabled th:value="${room.roomBasicPerson}">
+          <label for="room-basic-person" class="form-label">기준인원</label>
+        </div>
+        <div class="form-floating">
+          <input type="number" class="form-control" id="room-max-person" name="roomMaxPerson" disabled th:value="${room.roomMaxPerson}">
+          <label for="room-max-person" class="form-label">최대인원</label>
+        </div>
+        <div class="form-floating">
+          <input type="number" class="form-control" id="room-price-weekdays" name="roomPriceWeekdays" disabled
+                 th:value="${room.roomPriceWeekdays}">
+          <label for="room-price-weekdays" class="form-label">주중가격</label>
+        </div>
+        <div class="form-floating">
+          <input type="number" class="form-control" id="room-price-weekend" name="roomPriceWeekend" disabled
+                 th:value="${room.roomPriceWeekend}">
+          <label for="room-price-weekend" class="form-label">주말가격</label>
+        </div>
+        <div class="form-floating">
+          <input type="number" class="form-control" id="room-price-shoulder-weekdays" name="roomPriceShoulderWeekdays" disabled
+                 th:value="${room.roomPriceShoulderWeekdays}">
+          <label for="room-price-shoulder-weekdays" class="form-label">준성수기 주중가격</label>
+        </div>
+        <div class="form-floating">
+          <input type="number" class="form-control" id="room-price-shoulder-weekend" name="roomPriceShoulderWeekend" disabled
+                 th:value="${room.roomPriceShoulderWeekend}">
+          <label for="room-price-shoulder-weekend" class="form-label">준성수기 주말가격</label>
+        </div>
+        <div class="form-floating">
+          <input type="number" class="form-control" id="room-price-peak-weekdays" name="roomPricePeakWeekdays" disabled
+                 th:value="${room.roomPricePeakWeekdays}">
+          <label for="room-price-peak-weekdays" class="form-label">성수기 주중가격</label>
+        </div>
+        <div class="form-floating">
+          <input type="number" class="form-control" id="room-price-peak-weekend" name="roomPricePeakWeekend" disabled
+                 th:value="${room.roomPricePeakWeekend}">
+          <label for="room-price-peak-weekend" class="form-label">성수기 주말가격</label>
+        </div>
+        <div class="form-floating">
+          <textarea class="form-control" id="room-service" name="roomService" disabled th:text="${room.roomService}"
+                    style="height: 150px; resize: none"></textarea>
+          <label for="room-service" class="form-label">객실 서비스</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="row mt-2">
+    <div class="col-sm clearfix">
+      <button type="button" class="btn btn-secondary float-start" id="btn_list">목록</button>
+      <button type="button" class="btn btn-primary float-end" id="edit-room">수정</button>
+      <div class="float-end d-none" id="edit_btn_group">
+        <button type="button" class="btn btn-primary" id="edit-cancel">취소</button>
+        <button type="button" class="btn btn-primary" id="edit-ok">확인</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>
