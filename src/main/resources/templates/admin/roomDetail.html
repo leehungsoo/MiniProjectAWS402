@@ -63,19 +63,21 @@
               const frm = document.createElement("form");
               frm.setAttribute("method", "POST");
               frm.setAttribute("action", "/admin/resource");
-              resourceChecks.forEach(function (check, index){
-                  const deleteList = document.createElement("input");
-                  deleteList.type = "text";
-                  deleteList.name = 'deleteList['+index+']';
-                  deleteList.value = check.value;
-                  frm.appendChild(deleteList);
-              });
               const deleteMethod = document.createElement("input");
               deleteMethod.type = "hidden";
               deleteMethod.name = "_method";
               deleteMethod.value = "delete";
               frm.appendChild(deleteMethod);
-              console.log(frm.outerHTML);
+              const roomIdx = document.querySelector("#room-idx");
+              frm.appendChild(roomIdx);
+              resourceChecks.forEach(function (check){
+                  const deleteList = document.createElement("input");
+                  deleteList.type = "hidden";
+                  deleteList.name = 'deleteList[]';
+                  deleteList.setAttribute("value", check.value);
+                  frm.appendChild(deleteList);
+              });
+
               document.body.appendChild(frm);
               frm.submit();
           }

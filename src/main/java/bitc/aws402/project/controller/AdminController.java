@@ -89,12 +89,12 @@ public class AdminController {
     }
   }
 
-  @ResponseStatus
   @DeleteMapping("/resource")
-  public String adminResourceDelete(@RequestParam("deleteList") List<String> deleteList){
-    for(String deleteId : deleteList){
+  public String adminResourceDelete(@RequestParam("deleteList") List<Integer> deleteList, @RequestParam("roomIdx") int roomIdx){
+    for(int deleteId : deleteList){
       System.out.println(deleteId);
     }
+    System.out.println("roomIdx = " + roomIdx);
     return "redirect:/admin/room";
   }
 
