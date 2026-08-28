@@ -55,4 +55,9 @@ public class BasicService {
     List<ResourceDTO> resourceList = basicMapper.getResourceList(roomIdx);
     return resourceList;
   }
+
+  public int deleteResource(String resourceIds){
+    int result = basicMapper.deleteResource(resourceIds);
+    return result;
+  }
 }

@@ -90,12 +90,11 @@ public class AdminController {
   }
 
   @DeleteMapping("/resource")
-  public String adminResourceDelete(@RequestParam("deleteList") List<Integer> deleteList, @RequestParam("roomIdx") int roomIdx){
-    for(int deleteId : deleteList){
-      System.out.println(deleteId);
+  public String adminResourceDelete(@RequestParam("deleteList") List<String> deleteList, @RequestParam("roomIdx") int roomIdx){
+    if(!deleteList.isEmpty()) {
+      basicService.deleteResource(String.join(",", deleteList));
     }
-    System.out.println("roomIdx = " + roomIdx);
-    return "redirect:/admin/room";
+    return "redirect:/admin/room/"+roomIdx;
   }
 
   private String alert(String msg, String url, Model model){

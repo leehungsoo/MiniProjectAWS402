@@ -18,4 +18,5 @@ public interface BasicMapper {
   RoomDTO getRoomInfo(@Param("roomIdx") int roomIdx);
   int editRoom(RoomDTO room);
   List<ResourceDTO> getResourceList(@Param("roomIdx") int roomIdx);
+  int deleteResource(@Param("resourceIds") String resourceIds);
 }

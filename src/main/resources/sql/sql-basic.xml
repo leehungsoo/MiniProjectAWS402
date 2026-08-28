@@ -62,4 +62,9 @@
     select * from tb_resource
     where resource_room_idx=#{roomIdx}
   </select>
+
+  <delete id="deleteResource" parameterType="String">
+    delete from tb_resource
+    where resource_idx in (#{resourceIds})
+  </delete>
 </mapper>
