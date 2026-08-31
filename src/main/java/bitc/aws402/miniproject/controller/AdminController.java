@@ -5,6 +5,7 @@ import bitc.aws402.miniproject.dto.ResourceDTO;
 import bitc.aws402.miniproject.dto.RoomDTO;
 import bitc.aws402.miniproject.service.BasicService;
 import com.github.pagehelper.PageInfo;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,42 @@ public class AdminController {
   @GetMapping({"", "/"})
   public String index() {
     return "admin/index";
+  }
+
+  @PostMapping("/login")
+  public String adminLogin(@RequestParam("memberId") String memberId, @RequestParam("memberPwd") String memberPwd,  HttpSession session,  Model model) {
+    int result = basicService.getMemberLogin(memberId, memberPwd);
+    if (result > 0) {
+      MemberDTO member = basicService.getMemberInfo(result);
+      if(member.getMemberLevel()!=99){
+        return alert("관리자만 접근 가능 합니다.", "/", model);
+      }else{
+        session.setAttribute("memberIdx", member.getMemberIdx());
+        session.setAttribute("memberId", member.getMemberId());
+        session.setAttribute("memberName", member.getMemberName());
+        session.setAttribute("memberPhone", member.getMemberPhone());
+        session.setAttribute("memberEmail", member.getMemberEmail());
+        session.setAttribute("memberLevel", member.getMemberLevel());
+        session.setAttribute("memberGender", member.getMemberGender());
+        session.setAttribute("memberStatus", member.getMemberStatus());
+        session.setMaxInactiveInterval(60*60*1);
+      }
+    }
+    return "redirect:/admin";
+  }
+
+  @GetMapping("/logout")
+  public String adminLogout(HttpSession session) {
+    session.removeAttribute("memberIdx");
+    session.removeAttribute("memberId");
+    session.removeAttribute("memberName");
+    session.removeAttribute("memberPhone");
+    session.removeAttribute("memberEmail");
+    session.removeAttribute("memberLevel");
+    session.removeAttribute("memberGender");
+    session.removeAttribute("memberStatus");
+    session.invalidate();
+    return "redirect:/admin";
   }
 
   @GetMapping("/member")

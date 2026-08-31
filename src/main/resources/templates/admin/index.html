@@ -11,45 +11,49 @@
           integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
           crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios@1.20.0/dist/axios.min.js"></script>
+  <script src="/js/common.js"></script>
   <style>
   </style>
 
   <script>
       window.addEventListener("DOMContentLoaded", function () {
-          const btnOk = document.querySelector("#btn-ok");
-          btnOk.addEventListener("click", function () {
-              const searchId = document.querySelector("#search-id").value;
-              axios
-                  .get(`/api/member/${searchId}`, null, null)
-                  .then(function (res) {
-                      const data = res.data;
-                      console.log(data);
-                      document.querySelector("#member-idx").value = data.memberIdx;
-                      document.querySelector("#member-id").value = data.memberId;
-                      document.querySelector("#member-name").value = data.memberName;
-                      document.querySelector("#member-phone").value = data.memberPhone;
-                      document.querySelector("#member-email").value = data.memberEmail;
-                      document.querySelector("#member-gender").value = data.memberGender;
-                  })
-                  .catch(function (error) {
-
-                  });
-          });
 
 
-          const date = new Date();
-          const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-          const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-          console.log(firstDay.getDay() + " " + lastDay.getDate());
-          let c_count = 0;
-          let c_inner = '<tr>'
-          for(let i = 0; i < firstDay.getDay(); i++) {
-            c_inner += '<td></td>';
-            c_count++;
-          }
-          const callender = document.querySelector("#callender");
-          callender.innerHTML = c_inner;
+          // const btnOk = document.querySelector("#btn-ok");
+          // btnOk.addEventListener("click", function () {
+          //     const searchId = document.querySelector("#search-id").value;
+          //     axios
+          //         .get(`/api/member/${searchId}`, null, null)
+          //         .then(function (res) {
+          //             const data = res.data;
+          //             console.log(data);
+          //             document.querySelector("#member-idx").value = data.memberIdx;
+          //             document.querySelector("#member-id").value = data.memberId;
+          //             document.querySelector("#member-name").value = data.memberName;
+          //             document.querySelector("#member-phone").value = data.memberPhone;
+          //             document.querySelector("#member-email").value = data.memberEmail;
+          //             document.querySelector("#member-gender").value = data.memberGender;
+          //         })
+          //         .catch(function (error) {
+          //
+          //         });
+          // });
+          //
+          //
+          // const date = new Date();
+          // const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+          // const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+          //
+          // console.log(firstDay.getDay() + " " + lastDay.getDate());
+          // let c_count = 0;
+          // let c_inner = '<tr>'
+          // for(let i = 0; i < firstDay.getDay(); i++) {
+          //   c_inner += '<td></td>';
+          //   c_count++;
+          // }
+          // const callender = document.querySelector("#callender");
+          // callender.innerHTML = c_inner;
       });
   </script>
 
@@ -61,59 +65,66 @@
 <main class="container mt-5">
   <div class="row">
     <div class="col-sm">
-      <label for="search-id" class="form-label">회원정보</label>
-      <input id="search-id" type="text" class="form-control" placeholder="회원ID">
-      <button type="button" class="btn btn-primary form-control mt-1" id="btn-ok">확인</button>
-    </div>
-    <div class="col-sm mt-2">
-      <div class="form-floating">
-        <input type="text" class="form-control" id="member-idx" readonly>
-        <label for="member-idx" class="form-label">번호</label>
-      </div>
-      <div class="form-floating">
-        <input type="text" class="form-control" id="member-id" readonly>
+      <form action="/admin/login" method="post" th:if="${session.memberId == null}">
         <label for="member-id" class="form-label">아이디</label>
+        <input id="member-id" type="text" name="memberId" class="form-control" placeholder="회원ID">
+        <label for="member-pwd" class="form-label">비밀번호</label>
+        <input id="member-pwd" type="password" name="memberPwd" class="form-control" placeholder="비밀번호">
+        <button type="submit" class="btn btn-primary form-control mt-1" id="btn-ok">확인</button>
+      </form>
+      <div th:unless="${session.memberId == null}" class="text-center">
+        <h1>관리자 <span th:text="${session.memberName}"></span> 로그인</h1>
       </div>
-      <div class="form-floating">
-        <input type="text" class="form-control" id="member-name" readonly>
-        <label for="member-name" class="form-label">이름</label>
-      </div>
-      <div class="form-floating">
-        <input type="text" class="form-control" id="member-phone" readonly>
-        <label for="member-phone" class="form-label">전화번호</label>
-      </div>
-      <div class="form-floating">
-        <input type="text" class="form-control" id="member-email" readonly>
-        <label for="member-email" class="form-label">이메일</label>
-      </div>
-      <div class="form-floating">
-        <input type="text" class="form-control" id="member-gender" readonly>
-        <label for="member-gender" class="form-label">성별</label>
-      </div>
-
     </div>
+<!--    <div class="col-sm mt-2">-->
+<!--      <div class="form-floating">-->
+<!--        <input type="text" class="form-control" id="member-idx" readonly>-->
+<!--        <label for="member-idx" class="form-label">번호</label>-->
+<!--      </div>-->
+<!--      <div class="form-floating">-->
+<!--        <input type="text" class="form-control" id="member-id" readonly>-->
+<!--        <label for="member-id" class="form-label">아이디</label>-->
+<!--      </div>-->
+<!--      <div class="form-floating">-->
+<!--        <input type="text" class="form-control" id="member-name" readonly>-->
+<!--        <label for="member-name" class="form-label">이름</label>-->
+<!--      </div>-->
+<!--      <div class="form-floating">-->
+<!--        <input type="text" class="form-control" id="member-phone" readonly>-->
+<!--        <label for="member-phone" class="form-label">전화번호</label>-->
+<!--      </div>-->
+<!--      <div class="form-floating">-->
+<!--        <input type="text" class="form-control" id="member-email" readonly>-->
+<!--        <label for="member-email" class="form-label">이메일</label>-->
+<!--      </div>-->
+<!--      <div class="form-floating">-->
+<!--        <input type="text" class="form-control" id="member-gender" readonly>-->
+<!--        <label for="member-gender" class="form-label">성별</label>-->
+<!--      </div>-->
+
+<!--    </div>-->
 
   </div>
-  <div class="row">
-    <div class="col-sm">
-      <table class="table table-hover">
-        <thead class="text-center">
-        <tr>
-          <td class="text-danger">일</td>
-          <td>월</td>
-          <td>화</td>
-          <td>수</td>
-          <td>목</td>
-          <td>금</td>
-          <td class="text-primary">토</td>
-        </tr>
-        </thead>
-        <tbody id="callender">
+<!--  <div class="row">-->
+<!--    <div class="col-sm">-->
+<!--      <table class="table table-hover">-->
+<!--        <thead class="text-center">-->
+<!--        <tr>-->
+<!--          <td class="text-danger">일</td>-->
+<!--          <td>월</td>-->
+<!--          <td>화</td>-->
+<!--          <td>수</td>-->
+<!--          <td>목</td>-->
+<!--          <td>금</td>-->
+<!--          <td class="text-primary">토</td>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody id="callender">-->
 
-        </tbody>
-      </table>
-    </div>
-  </div>
+<!--        </tbody>-->
+<!--      </table>-->
+<!--    </div>-->
+<!--  </div>-->
 </main>
 </body>
 </html>

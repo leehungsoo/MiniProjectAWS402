@@ -15,6 +15,14 @@ import java.util.List;
 public class BasicService {
   private final BasicMapper basicMapper;
 
+  public int getMemberLogin(String memberId, String memberPwd) {
+    String result = basicMapper.getMemberLogin(memberId, memberPwd);
+    if(result == null) {
+      return 0;
+    }
+    return Integer.parseInt(result);
+  }
+
   public MemberDTO getMemberInfo(int memberIdx) {
     MemberDTO member = basicMapper.getMemberInfo(memberIdx);
     return member;

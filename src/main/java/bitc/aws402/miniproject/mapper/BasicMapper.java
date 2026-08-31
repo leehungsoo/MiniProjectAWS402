@@ -10,6 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface BasicMapper {
+  String getMemberLogin(@Param("memberId")  String memberId, @Param("memberPwd") String memberPwd);
   MemberDTO getMemberInfo(@Param("memberIdx") int memberIdx);
   List<MemberDTO> getMemberList();
   int editMember(MemberDTO member);

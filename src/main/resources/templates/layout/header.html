@@ -31,6 +31,9 @@
       <div>
         <a href="#" class="btn btn-outline-danger" th:href="@{/}">홈으로 이동</a>
       </div>
+      <div th:if="${session.memberId != null}" class="ms-1">
+        <a href="#" class="btn btn-danger" id="btn-logout">로그아웃</a>
+      </div>
     </div>
     <script>
     </script>
