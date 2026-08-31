@@ -1,9 +1,9 @@
-package bitc.aws402.miniproject.controller;
+package bitc.aws402.project.controller;
 
-import bitc.aws402.miniproject.dto.MemberDTO;
-import bitc.aws402.miniproject.dto.ResourceDTO;
-import bitc.aws402.miniproject.dto.RoomDTO;
-import bitc.aws402.miniproject.service.BasicService;
+import bitc.aws402.project.dto.MemberDTO;
+import bitc.aws402.project.dto.ResourceDTO;
+import bitc.aws402.project.dto.RoomDTO;
+import bitc.aws402.project.service.BasicService;
 import com.github.pagehelper.PageInfo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -61,7 +61,7 @@ public class AdminController {
     return "redirect:/admin";
   }
 
-  @GetMapping("/member")
+  @GetMapping("member")
   public String adminMember(@RequestParam(required = false, defaultValue = "1", value = "pageNum") int pageNum, Model model) {
     PageInfo<MemberDTO> pageMemberList = new PageInfo<>(basicService.getMemberList(pageNum), 5);
     model.addAttribute("pageMemberList", pageMemberList);

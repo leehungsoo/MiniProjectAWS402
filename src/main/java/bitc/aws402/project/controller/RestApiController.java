@@ -1,7 +1,7 @@
-package bitc.aws402.miniproject.controller;
+package bitc.aws402.project.controller;
 
-import bitc.aws402.miniproject.dto.MemberDTO;
-import bitc.aws402.miniproject.service.BasicService;
+import bitc.aws402.project.dto.MemberDTO;
+import bitc.aws402.project.service.BasicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

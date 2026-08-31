@@ -1,4 +1,4 @@
-package bitc.aws402.miniproject.controller;
+package bitc.aws402.project.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package bitc.aws402.miniproject.dto;
+package bitc.aws402.project.dto;
 
 import lombok.Data;
 

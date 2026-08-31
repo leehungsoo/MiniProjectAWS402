@@ -1,8 +1,8 @@
-package bitc.aws402.miniproject.mapper;
+package bitc.aws402.project.mapper;
 
-import bitc.aws402.miniproject.dto.MemberDTO;
-import bitc.aws402.miniproject.dto.ResourceDTO;
-import bitc.aws402.miniproject.dto.RoomDTO;
+import bitc.aws402.project.dto.MemberDTO;
+import bitc.aws402.project.dto.ResourceDTO;
+import bitc.aws402.project.dto.RoomDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

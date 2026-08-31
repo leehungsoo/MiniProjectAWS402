@@ -1,4 +1,4 @@
-package bitc.aws402.miniproject.interceptor;
+package bitc.aws402.project.interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

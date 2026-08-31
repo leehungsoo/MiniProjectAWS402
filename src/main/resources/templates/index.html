@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,8 +19,28 @@
 
 </head>
 <body>
-<main class="container mt-5">
-  <h3>index.html</h3>
-</main>
+<header th:replace="~{layout/header :: mainHeader}">
+
+</header>
+
+<!--<div class="container my-5">-->
+<!--  <div class="row">-->
+
+<!--    &lt;!&ndash; 1. 사이드바 영역 (본인 파트에 맞게 파일명 변경 필수) &ndash;&gt;-->
+<!--    <div class="col-12 col-md-3">-->
+<!--      &lt;!&ndash; 아래 중 본인 파트 코드 1개만 넣으세요 &ndash;&gt;-->
+<!--      &lt;!&ndash; 숙소 파트: &ndash;&gt; <div th:replace="~{layout/roomSidebar :: roomSidebar}"></div>-->
+<!--      &lt;!&ndash; 예약 파트: &ndash;&gt; <div th:replace="~{layout/reservationSidebar :: reservationSidebar}"></div>-->
+<!--      &lt;!&ndash; 소개 파트: &ndash;&gt; <div th:replace="~{layout/introSidebar :: introSidebar}"></div>-->
+<!--      &lt;!&ndash; 관리자 파트는 형호 씨가 작성한 adminSidebar 사용 &ndash;&gt;-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; 2. 오른쪽 본문 영역 (본인 작업 내용 넣기) &ndash;&gt;-->
+<!--    <main class="col-12 col-md-9">-->
+<!--      <h2 class="fw-bold mb-4">페이지 제목</h2>-->
+<!--      &lt;!&ndash; 여기에 각자 본문 코드를 작성해주세요 &ndash;&gt;-->
+<!--    </main>-->
+<!--  </div>-->
+<!--</div>-->
 </body>
 </html>

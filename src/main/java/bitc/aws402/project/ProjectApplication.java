@@ -1,4 +1,4 @@
-package bitc.aws402.miniproject;
+package bitc.aws402.project;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
