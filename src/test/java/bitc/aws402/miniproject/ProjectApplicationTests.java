@@ -1,4 +1,4 @@
-package bitc.aws402.project;
+package bitc.aws402.miniproject;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

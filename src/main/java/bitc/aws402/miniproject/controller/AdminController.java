@@ -1,9 +1,9 @@
-package bitc.aws402.project.controller;
+package bitc.aws402.miniproject.controller;
 
-import bitc.aws402.project.dto.MemberDTO;
-import bitc.aws402.project.dto.ResourceDTO;
-import bitc.aws402.project.dto.RoomDTO;
-import bitc.aws402.project.service.BasicService;
+import bitc.aws402.miniproject.dto.MemberDTO;
+import bitc.aws402.miniproject.dto.ResourceDTO;
+import bitc.aws402.miniproject.dto.RoomDTO;
+import bitc.aws402.miniproject.service.BasicService;
 import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

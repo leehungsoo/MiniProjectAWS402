@@ -1,9 +1,9 @@
-package bitc.aws402.project.service;
+package bitc.aws402.miniproject.service;
 
-import bitc.aws402.project.dto.MemberDTO;
-import bitc.aws402.project.dto.ResourceDTO;
-import bitc.aws402.project.dto.RoomDTO;
-import bitc.aws402.project.mapper.BasicMapper;
+import bitc.aws402.miniproject.dto.MemberDTO;
+import bitc.aws402.miniproject.dto.ResourceDTO;
+import bitc.aws402.miniproject.dto.RoomDTO;
+import bitc.aws402.miniproject.mapper.BasicMapper;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
